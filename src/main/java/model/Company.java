@@ -1,29 +1,41 @@
 package model;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Company {
-    private final Set<Department> departments = new HashSet<>();
-    private final Set<Employee> employees = new HashSet<>();
+    private final Map<String, Department> departments = new HashMap<>();
 
-    public Set<Department> getDepartments(){
-        return new HashSet<>(departments);
+    public Map<String, Department> getDepartments(){
+        return new HashMap<>(departments);
     }
 
-    public Set<Employee> getEmployees() {
-        return new HashSet<>(employees);
+    public void addDepartment(Department department, String name){
+        departments.put(name, department);
     }
 
-    public boolean addDepartment(Department department){
-        employees.addAll(department.getEmployees());
-        return departments.add(department);
+    public void addEmployee(String department, Employee employee){
+        departments.get(department).addEmployee(employee);
     }
 
-    public boolean addDepartments(Set<Department> departments){
-        departments.forEach(department ->
-                employees.addAll(department.getEmployees())
-        );
-        return this.departments.addAll(departments);
+    public int countEmployee(){
+        return departments.values()
+                .stream()
+                .mapToInt(Department::countEmployee)
+                .sum();
+    }
+
+    public int countEmployeeWithBirthdayThisMonth(int month){
+        return departments.values()
+                .stream()
+                .mapToInt(department -> department.countEmployeeWithBirthdayThisMonth(month))
+                .sum();
+    }
+
+    public int sumClearSalary(){
+        return departments.values()
+                .stream()
+                .mapToInt(Department::sumClearSalary)
+                .sum();
     }
 }

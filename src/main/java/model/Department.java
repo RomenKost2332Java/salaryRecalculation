@@ -15,8 +15,20 @@ public class Department {
         return employees.add(employee);
     }
 
-    public boolean addEmployees(Set<Employee> employees){
-        return this.employees.addAll(employees);
+    public int countEmployee(){
+        return employees.size();
+    }
+
+    public int countEmployeeWithBirthdayThisMonth(int month){
+        return (int) employees.stream()
+                .filter(employee -> employee.isBirthdayThisMonth(month))
+                .count();
+    }
+
+    public int sumClearSalary(){
+        return employees.stream()
+                .mapToInt(Employee::getClearSalary)
+                .sum();
     }
 
     @Override
