@@ -2,12 +2,18 @@ package model;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Stream;
 
 public class Company {
     private final Map<String, Department> departments = new HashMap<>();
 
-    public Map<String, Department> getDepartments(){
-        return new HashMap<>(departments);
+    public Stream<Map.Entry<String, Department>> getDepartmentsStream(){
+        return departments.entrySet().stream();
+    }
+
+    public Set<String> getDepartmentsNames(){
+        return departments.keySet();
     }
 
     public void addDepartment(Department department, String name){

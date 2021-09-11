@@ -3,12 +3,13 @@ package model;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Stream;
 
 public class Department {
     private final Set<Employee> employees = new HashSet<>();
 
-    public Set<Employee> getEmployees(){
-        return new HashSet<>(employees);
+    public Stream<Employee> getEmployeesStream(){
+        return employees.stream();
     }
 
     public boolean addEmployee(Employee employee){
